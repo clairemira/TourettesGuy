@@ -1,0 +1,12 @@
+<ui xmlns="http://www.blizzard.com/wow/ui/">
+	<script file="src\Globals.lua"/>
+	<script file="src\Utility.lua"/>
+	<script file="src\Buff.lua"/>
+	<script file="src\Spell.lua"/>
+  <script file="src\Talent.lua"/>
+
+  <!-- MARK: Profiles -->
+  <script file="src\Profiles\DruidFeral.lua"/>
+  <script file="src\Profiles\ShamanElemental.lua"/>
+	<script file="src\Profiles\MageFire.lua"/>
+</ui>

@@ -1,0 +1,8 @@
+## Interface: 70200
+## Title: TourettesGuy
+## Notes: Brings tourettes guy to Azeroth.
+## Author: Ensane
+## Version: 1.0.0
+
+Scripts.xml
+TourettesGuy.lua
