@@ -34,9 +34,9 @@ end
 function TGDisable()
 	if TG_ENABLED then
 		TG_ENABLED = false;
-		TGPrint("TourettesGuy sounds have been " .. TGRedText("disabled") .. ".");
+		TGPrint("Sounds have been " .. TGRedText("disabled") .. ".");
 	else
-		print("TourettesGuy sounds are already disabled.");
+		TGPrint("Sounds are already disabled.");
 	end
 end
 
@@ -198,7 +198,6 @@ local function TGOnEvent(self, event, ...)
 	elseif event == "PLAYER_DEAD" then
 		TGPlayerDead();
 	elseif event == "UNIT_COMBAT" then
-		-- print(...);
 		TGUnitCombat(...);
 	elseif event == "PLAYER_CONTROL_GAINED" then
 		-- TODO: Play something else here
@@ -222,13 +221,25 @@ local function TGOnEvent(self, event, ...)
 	elseif event == "MINIMAP_PING" then
 		TGPlayRandomCuss();
 	elseif event == "PLAYER_LOGOUT" then
-		--TGPlay("toopissedtogiveashit");
+		-- Was happening on console reloads as well so removed
 	elseif event == "RESURRECT_REQUEST" then
 		TGPlay("bitchiloveyou");
 	elseif event == "UNIT_SPELLCAST_START" then
 		TGSpellCastStart(...);
 	elseif event == "UNIT_SPELLCAST_SUCCEEDED" then
 		TGSpellCastSucceeded(...);
+	elseif event == "TRANSMOGRIFY_OPEN" then
+		TGPlay("wouldntfuckher");
+	elseif event == "MAIL_INBOX_UPDATE" then
+		TGPlay("glasses");
+	elseif event == "CHAT_MSG_AFK" then
+		TGPlay("toopissedtogiveashit");
+	elseif event == "BARBER_SHOP_OPEN" then
+		TGPlay("faggot");
+	elseif event == "AUCTION_HOUSE_SHOW" then
+		TGPlay("papertowels");
+	elseif event == "ACHIEVEMENT_EARNED" then
+		TGPlay("brrt");
   end
 end
 
@@ -261,3 +272,9 @@ TG_FRAME:RegisterEvent("PLAYER_LOGOUT")
 TG_FRAME:RegisterEvent("RESURRECT_REQUEST")
 TG_FRAME:RegisterEvent("UNIT_SPELLCAST_START")
 TG_FRAME:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+TG_FRAME:RegisterEvent("TRANSMOGRIFY_OPEN")
+TG_FRAME:RegisterEvent("MAIL_INBOX_UPDATE")
+TG_FRAME:RegisterEvent("CHAT_MSG_AFK")
+TG_FRAME:RegisterEvent("BARBER_SHOP_OPEN")
+TG_FRAME:RegisterEvent("AUCTION_HOUSE_SHOW")
+TG_FRAME:RegisterEvent("ACHIEVEMENT_EARNED")
