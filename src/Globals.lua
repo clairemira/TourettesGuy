@@ -1,2 +1,2 @@
--- Global enabled status for the TourettesGuy
-enabled = false;
+-- Global variables here
+-- TG_ENABLED = true;
