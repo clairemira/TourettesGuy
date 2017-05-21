@@ -71,7 +71,7 @@ function TGPlay(file)
 end
 
 local function TGPlayRandomCuss()
-	local rnd = math.random(1,8);
+	local rnd = math.random(1,19);
 
 	if rnd == 1 then
 		TGPlay("piss");
@@ -89,6 +89,28 @@ local function TGPlayRandomCuss()
 		TGPlay("fuckyou");
 	elseif rnd == 8 then
 		TGPlay("shit");
+	elseif rnd == 9 then
+		TGPlay("bobsaget");
+	elseif rnd == 10 then
+		TGPlay("wasteofshit");
+	elseif rnd == 11 then
+		TGPlay("holyshit");
+	elseif rnd == 12 then
+		TGPlay("holyfuck");
+	elseif rnd == 13 then
+		TGPlay("fuuck");
+	elseif rnd == 14 then
+		TGPlay("awawshit");
+	elseif rnd == 15 then
+		TGPlay("awshit");
+	elseif rnd == 16 then
+		TGPlay("awwwshit");
+	elseif rnd == 17 then
+		TGPlay("faggot");
+	elseif rnd == 18 then
+		TGPlay("horsemanure");
+	elseif rnd == 19 then
+		TGPlay("titdirt");
 	end
 end
 
@@ -96,12 +118,26 @@ function TGPlayerHealthPercentage()
 	return (UnitHealth("Player") / UnitHealthMax("Player")) * 100;
 end
 
-local function TGCombatLogEventUnfiltered(timestamp,event,hideCaster,sourceGUID,sourceName,sourceFlags,sourceRaidFlags,destGUID,destFlags,destRaidFlags,...)
+local function TGPartyMemberDied()
+ 	local rnd = math.random(1,2)
+
+	if rnd == 1 then
+		TGPlay("youpieceofshit");
+	elseif rnd == 2 then
+		TGPlay("wasteofshit");
+	end
+end
+
+local function TGCombatLogEventUnfiltered(timestamp,event,hideCaster,sourceGUID,sourceName,sourceFlags,sourceRaidFlags,destGUID,destName,...)
   -- Keep track of damage multipliers on the target
   if event == "SPELL_AURA_APPLIED" or event == "SPELL_AURA_REFRESH" then
     local _,spellId,spellName = ...
 
   end
+
+	if event == "UNIT_DIED" and (UnitInRaid(destName) or UnitInParty(destName)) and UnitIsPlayer(destName) then
+		TGPartyMemberDied();
+	end
 end
 
 local function TGDidEnterCombat()
@@ -109,25 +145,13 @@ local function TGDidEnterCombat()
 end
 
 local function TGDidLeaveCombat()
-	if TGPlayerHealthPercentage() <= 20 then
+	if TGPlayerHealthPercentage() <= 50 and not UnitIsDeadOrGhost("player") then
 		TGPlay("thatsmyass");
 	end
 end
 
 local function TGPlayerDead()
-	local rnd = math.random(1,5);
-
-	if rnd == 1 then
-		TGPlay("bobsaget");
-	elseif rnd == 2 then
-		TGPlay("wasteofshit");
-	elseif rnd == 3 then
-		TGPlay("holyshit");
-	elseif rnd == 4 then
-		TGPlay("holyfuck");
-	elseif rnd == 5 then
-		TGPlay("fuuck");
-	end
+	TGPlay("youpieceofshit");
 end
 
 local function TGUnitCombat(uid, action, blow, damage, school)
@@ -186,6 +210,16 @@ local function TGReadyCheckConfirm(uid, ready)
 	end
 end
 
+local lastPing = 0;
+local function TGMinimapPing(unit, x, y)
+	local now = GetTime();
+
+	if unit == "player" and now - lastPing > 0.5 then
+		lastPing = now;
+		TGPlayRandomCuss();
+	end
+end
+
 local function TGOnEvent(self, event, ...)
   if event == "COMBAT_LOG_EVENT_UNFILTERED" then
     TGCombatLogEventUnfiltered(...)
@@ -194,9 +228,9 @@ local function TGOnEvent(self, event, ...)
   elseif event == "PLAYER_REGEN_ENABLED" then
     TGDidLeaveCombat()
 	elseif event == "PLAYER_SPECIALIZATION_CHANGED" then
-		TGPlay("cantdoshit");
+		--TGPlay("cantdoshit");
 	elseif event == "PLAYER_DEAD" then
-		TGPlayerDead();
+		--TGPlayerDead();
 	elseif event == "UNIT_COMBAT" then
 		TGUnitCombat(...);
 	elseif event == "PLAYER_CONTROL_GAINED" then
@@ -219,7 +253,7 @@ local function TGOnEvent(self, event, ...)
 	elseif event == "PLAYER_LEVEL_UP" then
 		TGPlay("ahwoahshit");
 	elseif event == "MINIMAP_PING" then
-		TGPlayRandomCuss();
+		TGMinimapPing(...);
 	elseif event == "PLAYER_LOGOUT" then
 		-- Was happening on console reloads as well so removed
 	elseif event == "RESURRECT_REQUEST" then
